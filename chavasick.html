@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chava - Servicios Técnicos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: white;
+        }
+
+        /* Barra de navegación */
+        .nav-bar {
+            background-color: #000000;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        /* Sección de servicios */
+        .servicios {
+            padding: 4rem 2rem;
+            background-color: #f0f4f8;
+        }
+
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .servicio-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+            border: 2px solid #00256f;
+        }
+
+        .servicio-card:hover {
+            transform: translateY(-5px);
+            background-color: #00256f;
+            color: white;
+        }
+
+        /* Sobre Nosotros */
+        .sobre-nosotros {
+            padding: 4rem 2rem;
+            background-color: #00256f;
+            color: white;
+            text-align: center;
+        }
+
+        /* Redes Sociales */
+        .redes-sociales {
+            padding: 4rem 2rem;
+            background-color: white;
+            text-align: center;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #00256f;
+            text-decoration: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .servicios-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .menu-icon {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="logo">CHAVA</div>
+        <div class="nav-links">
+            <a href="#servicios">Servicios</a>
+            <a href="#nosotros">Sobre Nosotros</a>
+            <a href="#redes">Siguenos</a>
+        </div>
+    </nav>
+
+    <section class="servicios" id="servicios">
+        <div class="servicios-grid">
+            <div class="servicio-card" onclick="enviarWhatsApp('Electricidad')">
+                <h2>Electricidad</h2>
+                <p>Soluciones integrales en instalaciones y reparaciones eléctricas</p>
+            </div>
+            <div class="servicio-card" onclick="enviarWhatsApp('Plomería')">
+                <h2>Plomería</h2>
+                <p>Reparaciones y mantenimiento de sistemas de tuberías y cañerías</p>
+            </div>
+            <div class="servicio-card" onclick="enviarWhatsApp('Reparación de aparatos')">
+                <h2>Reparación de Electrodomésticos</h2>
+                <p>Reparación profesional de línea blanca y electrodomésticos</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="sobre-nosotros" id="nosotros">
+        <h2>¿Por qué elegirnos?</h2>
+        <p style="max-width: 800px; margin: 2rem auto; line-height: 1.6;">
+            En CHAVA nos dedicamos a conectar técnicos altamente calificados con personas que necesitan soluciones rápidas y confiables. 
+            Somos tu mejor opción para resolver problemas de electricidad, plomería y reparación de electrodomésticos con 
+            profesionalismo y eficiencia. Nuestro compromiso es brindar un servicio seguro, oportuno y con garantía, 
+            asegurando que cada solución supere tus expectativas. ¡Confía en los expertos!
+        </p>
+    </section>
+
+    <section class="redes-sociales" id="redes">
+        <h2 style="color: #00256f;">Síguenos</h2>
+        <div class="social-icons">
+            <a href="" class="social-item">
+                <i class="fab fa-facebook fa-2x"></i>
+                <span>Facebook</span>
+            </a>
+            <a href="" class="social-item">
+                <i class="fab fa-instagram fa-2x"></i>
+                <span>Instagram</span>
+            </a>
+            <a href="" class="social-item">
+                <i class="fab fa-twitter fa-2x"></i>
+                <span>Twitter</span>
+            </a>
+            <a href="" class="social-item">
+                <i class="fab fa-linkedin fa-2x"></i>
+                <span>LinkedIn</span>
+            </a>
+            <a href="mailto:chava.inc@outlook.com" class="social-item">
+                <i class="fas fa-envelope fa-2x"></i>
+                <span>chava.inc@outlook.com</span>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        function enviarWhatsApp(servicio) {
+            const mensaje = `¡Hola! Quiero pedir un servicio de ${servicio}`;
+            const url = `https://wa.me/59172620639?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
