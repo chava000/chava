@@ -20,19 +20,20 @@
         /* Barra de navegación */
         .nav-bar {
             background-color: #000000;
-            padding: 1.5rem;
+            padding: 1rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
 
         .logo {
             color: white;
             font-size: 1.5rem;
             font-weight: bold;
+            z-index: 1001;
         }
 
         .nav-links {
@@ -46,15 +47,73 @@
             font-size: 1rem;
         }
 
+        /* Menú Hamburguesa */
+        .menu-icon {
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+            z-index: 1001;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 70%;
+            height: 100%;
+            background-color: #00256f;
+            transition: 0.3s;
+            z-index: 999;
+            padding: 2rem;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 1rem 0;
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .close-menu {
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 998;
+            display: none;
+        }
+
         /* Sección de servicios */
         .servicios {
             padding: 4rem 2rem;
             background-color: #f0f4f8;
+            
         }
 
+        .servicio-titulo {
+            text-align: center;
+            padding: 1rem 1rem;
+        }
         .servicios-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             max-width: 1200px;
             margin: 0 auto;
@@ -62,18 +121,69 @@
 
         .servicio-card {
             background-color: white;
-            padding: 2rem;
             border-radius: 15px;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: all 0.3s;
             border: 2px solid #00256f;
+            overflow: hidden;
         }
 
-        .servicio-card:hover {
-            transform: translateY(-5px);
+        /* Nuevos estilos para subservicios */
+        .servicio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .subservicios {
+            display: none;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .servicio-card.active .subservicios {
+            display: block;
+        }
+
+        .subservicio {
+            background-color: rgba(0, 37, 111, 0.05);
+            margin: 0.5rem 0;
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .subservicio:hover {
+            background-color: rgba(0, 37, 111, 0.1);
+            transform: translateX(5px);
+        }
+
+        .subservicio button {
             background-color: #00256f;
             color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .subservicio button:hover {
+            background-color: #001a4a;
+        }
+
+        .servicio-card.active {
+            background-color: #00256f;
+            color: white;
+        }
+
+        .servicio-card.active .subservicio {
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         /* Sobre Nosotros */
@@ -113,14 +223,16 @@
                 display: none;
             }
             
+            .menu-icon {
+                display: block;
+            }
+            
             .servicios-grid {
                 grid-template-columns: 1fr;
             }
-        }
-
-        @media (min-width: 769px) {
-            .menu-icon {
-                display: none;
+            
+            .mobile-menu {
+                width: 250px;
             }
         }
     </style>
@@ -128,26 +240,119 @@
 <body>
     <nav class="nav-bar">
         <div class="logo">CHAVA</div>
+        <i class="menu-icon fas fa-bars"></i>
         <div class="nav-links">
             <a href="#servicios">Servicios</a>
             <a href="#nosotros">Sobre Nosotros</a>
-            <a href="#redes">Siguenos</a>
+            <a href="#redes">Síguenos</a>
         </div>
     </nav>
 
+    <!-- Menú móvil -->
+    <div class="mobile-menu">
+        <i class="close-menu fas fa-times" onclick="closeMenu()"></i>
+        <a href="#servicios" onclick="closeMenu()">Servicios</a>
+        <a href="#nosotros" onclick="closeMenu()">Sobre Nosotros</a>
+        <a href="#redes" onclick="closeMenu()">Síguenos</a>
+    </div>
+    <div class="overlay" onclick="closeMenu()"></div>
+
     <section class="servicios" id="servicios">
+        <div class="servicio-titulo">
+            <h2>¿Que servicios necesita?</h2>
+        </div>
         <div class="servicios-grid">
-            <div class="servicio-card" onclick="enviarWhatsApp('Electricidad')">
-                <h2>Electricidad</h2>
-                <p>Soluciones integrales en instalaciones y reparaciones eléctricas</p>
+            <!-- Servicio de Electricidad -->
+            <div class="servicio-card" onclick="toggleDetails(this)">
+                <div class="servicio-header">
+                    <h2>Electricidad</h2>
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="subservicios">
+                    <div class="subservicio">
+                        <span>Instalación eléctrica completa</span>
+                        <div>
+                            <span>Bs200</span>
+                            <button onclick="solicitarServicio('Electricidad - Instalación completa')">Solicitar</button>
+                        </div>
+                    </div>
+                    <div class="subservicio">
+                        <span>Reparación de cortocircuitos</span>
+                        <div>
+                            <span>Bs100</span>
+                            <button onclick="solicitarServicio('Electricidad - Reparación cortocircuitos')">Solicitar</button>
+                        </div>
+                    </div>
+                    <div class="subservicio">
+                        <span>Instalación de luminarias</span>
+                        <div>
+                            <span>Bs80</span>
+                            <button onclick="solicitarServicio('Electricidad - Instalación luminarias')">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="servicio-card" onclick="enviarWhatsApp('Plomería')">
-                <h2>Plomería</h2>
-                <p>Reparaciones y mantenimiento de sistemas de tuberías y cañerías</p>
+
+            <!-- Servicio de Plomería -->
+            <div class="servicio-card" onclick="toggleDetails(this)">
+                <div class="servicio-header">
+                    <h2>Plomería</h2>
+                    <i class="fas fa-faucet"></i>
+                </div>
+                <div class="subservicios">
+                    <div class="subservicio">
+                        <span>Reparación de fugas</span>
+                        <div>
+                            <span>Bs150</span>
+                            <button onclick="solicitarServicio('Plomería - Reparación de fugas')">Solicitar</button>
+                        </div>
+                    </div>
+                    <div class="subservicio">
+                        <span>Instalación de grifería</span>
+                        <div>
+                            <span>Bs120</span>
+                            <button onclick="solicitarServicio('Plomería - Instalación grifería')">Solicitar</button>
+                        </div>
+                    </div>
+                    <div class="subservicio">
+                        <span>Desatasco de tuberías</span>
+                        <div>
+                            <span>Bs100</span>
+                            <button onclick="solicitarServicio('Plomería - Desatasco tuberías')">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="servicio-card" onclick="enviarWhatsApp('Reparación de aparatos')">
-                <h2>Reparación de Electrodomésticos</h2>
-                <p>Reparación profesional de línea blanca y electrodomésticos</p>
+
+            <!-- Servicio de Reparación -->
+            <div class="servicio-card" onclick="toggleDetails(this)">
+                <div class="servicio-header">
+                    <h2>Reparación de Electrodomésticos</h2>
+                    <i class="fas fa-tools"></i>
+                </div>
+                <div class="subservicios">
+                    <div class="subservicio">
+                        <span>Reparación de lavadoras</span>
+                        <div>
+                            <span>Bs180</span>
+                            <button onclick="solicitarServicio('Reparación - Lavadoras')">Solicitar</button>
+                        </div>
+                    </div>
+                    <div class="subservicio">
+                        <span>Reparación de refrigeradores</span>
+                        <div>
+                            <span>Bs200</span>
+                            <button onclick="solicitarServicio('Reparación - Refrigeradores')">Solicitar</button>
+                        </div>
+                    </div>
+                    <div class="subservicio">
+                        <span>Reparación de hornos</span>
+                        <div>
+                            <span>Bs150</span>
+                            <button onclick="solicitarServicio('Reparación - Hornos')">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -181,19 +386,59 @@
                 <i class="fab fa-linkedin fa-2x"></i>
                 <span>LinkedIn</span>
             </a>
-            <a href="mailto:chava.inc@outlook.com" class="social-item">
+            <a href="mailto:chava.szc@outlook.com" class="social-item">
                 <i class="fas fa-envelope fa-2x"></i>
-                <span>chava.inc@outlook.com</span>
+                <span>chava.szc@outlook.com</span>
             </a>
         </div>
     </section>
 
     <script>
-        function enviarWhatsApp(servicio) {
-            const mensaje = `¡Hola! Quiero pedir un servicio de ${servicio}`;
-            const url = `https://wa.me/59172620639?text=${encodeURIComponent(mensaje)}`;
-            window.open(url, '_blank');
+        // Funcionalidad del menú móvil
+        const menuIcon = document.querySelector('.menu-icon');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const overlay = document.querySelector('.overlay');
+
+        menuIcon.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            overlay.style.display = 'block';
+        });
+
+        function closeMenu() {
+            mobileMenu.classList.remove('active');
+            overlay.style.display = 'none';
         }
+
+        // Función para mostrar/ocultar detalles
+        function toggleDetails(card) {
+            const allCards = document.querySelectorAll('.servicio-card');
+            allCards.forEach(c => {
+                if(c !== card) c.classList.remove('active');
+            });
+            card.classList.toggle('active');
+        }
+
+        // Función para solicitar subservicio
+        function solicitarServicio(subservicio) {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            const ubicacion = `https://www.google.com/maps?q=${lat},${lon}`;
+            const mensaje = `¡Hola! Quiero solicitar el servicio: ${subservicio}\nMi ubicación: ${ubicacion}`;
+            window.open(`https://wa.me/59172620639?text=${encodeURIComponent(mensaje)}`, '_blank');
+        }, error => {
+            alert("No se pudo obtener la ubicación. Asegúrate de permitir el acceso a la ubicación.");
+            const mensaje = `¡Hola! Quiero solicitar el servicio: ${subservicio}`;
+            window.open(`https://wa.me/59172620639?text=${encodeURIComponent(mensaje)}`, '_blank');
+        });
+    } else {
+        alert("Tu navegador no soporta la geolocalización.");
+        const mensaje = `¡Hola! Quiero solicitar el servicio: ${subservicio}`;
+        window.open(`https://wa.me/59172620639?text=${encodeURIComponent(mensaje)}`, '_blank');
+    }
+}
+
     </script>
 </body>
 </html>
