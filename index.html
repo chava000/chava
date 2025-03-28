@@ -455,9 +455,25 @@
 
         // Función para solicitar subservicio
         function solicitarServicio(subservicio) {
-            const mensaje = `¡Hola! Quiero solicitar el servicio: ${subservicio}`;
-            window.open(`https://wa.me/59172620639?text=${encodeURIComponent(mensaje)}`, '_blank');
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    const ubicacion = `https://www.google.com/maps?q=${lat},${lon}`;
+                    const mensaje = `¡Hola! Quiero solicitar el servicio: ${subservicio}\nMi ubicación: ${ubicacion}`;
+                    window.open(`https://wa.me/59172620639?text=${encodeURIComponent(mensaje)}`, '_blank');
+                }, error => {
+                    alert("No se pudo obtener la ubicación. Asegúrate de permitir el acceso a la ubicación.");
+                    const mensaje = `¡Hola! Quiero solicitar el servicio: ${subservicio}`;
+                    window.open(`https://wa.me/59172620639?text=${encodeURIComponent(mensaje)}`, '_blank');
+                });
+            } else {
+                alert("Tu navegador no soporta la geolocalización.");
+                const mensaje = `¡Hola! Quiero solicitar el servicio: ${subservicio}`;
+                window.open(`https://wa.me/59172620639?text=${encodeURIComponent(mensaje)}`, '_blank');
+            }
         }
+
     </script>
 </body>
 </html>
