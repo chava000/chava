@@ -59,18 +59,18 @@
         .mobile-menu {
             position: fixed;
             top: 0;
-            left: -100%;
+            right: -100%;
             width: 70%;
             height: 100%;
             background-color: #00256f;
             transition: 0.3s;
             z-index: 999;
             padding: 2rem;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+            box-shadow: -2px 0 5px rgba(0,0,0,0.2);
         }
 
         .mobile-menu.active {
-            left: 0;
+            right: 0;
         }
 
         .mobile-menu a {
@@ -270,24 +270,31 @@
                 </div>
                 <div class="subservicios">
                     <div class="subservicio">
-                        <span>Instalación eléctrica completa</span>
+                        <span>Cortocircuito</span>
                         <div>
-                            <span>Bs200</span>
-                            <button onclick="solicitarServicio('Electricidad - Instalación completa')">Solicitar</button>
+                            <!-- <span>Bs200</span> -->
+                            <button onclick="solicitarServicio('Electricidad - Cortocircuito')">Solicitar</button>
                         </div>
                     </div>
                     <div class="subservicio">
-                        <span>Reparación de cortocircuitos</span>
+                        <span>Ducha eléctrica</span>
                         <div>
-                            <span>Bs100</span>
-                            <button onclick="solicitarServicio('Electricidad - Reparación cortocircuitos')">Solicitar</button>
+                            <!--  <span>Bs100</span> -->
+                            <button onclick="solicitarServicio('Electricidad - Ducha eléctrica')">Solicitar</button>
                         </div>
                     </div>
                     <div class="subservicio">
-                        <span>Instalación de luminarias</span>
+                        <span>Tomas/focos dañados</span>
                         <div>
-                            <span>Bs80</span>
-                            <button onclick="solicitarServicio('Electricidad - Instalación luminarias')">Solicitar</button>
+                            <!-- <span>Bs80</span> -->
+                            <button onclick="solicitarServicio('Electricidad - Tomas/focos dañados')">Solicitar</button>
+                        </div>
+                    </div>
+                    <div class="subservicio">
+                        <span>Otros</span>
+                        <div>
+                            <!-- <span>Bs80</span> -->
+                            <button onclick="solicitarServicio('Electricidad - Otros')">Solicitar</button>
                         </div>
                     </div>
                 </div>
@@ -301,24 +308,31 @@
                 </div>
                 <div class="subservicios">
                     <div class="subservicio">
-                        <span>Reparación de fugas</span>
+                        <span>Goteras en los grifos</span>
                         <div>
-                            <span>Bs150</span>
-                            <button onclick="solicitarServicio('Plomería - Reparación de fugas')">Solicitar</button>
+                            <!--  <span>Bs150</span> -->
+                            <button onclick="solicitarServicio('Plomería - Goteras en los grifos')">Solicitar</button>
                         </div>
                     </div>
                     <div class="subservicio">
-                        <span>Instalación de grifería</span>
+                        <span>Lavavajillas o lavamanos tapados</span>
                         <div>
-                            <span>Bs120</span>
-                            <button onclick="solicitarServicio('Plomería - Instalación grifería')">Solicitar</button>
+                            <!-- <span>Bs120</span> -->
+                            <button onclick="solicitarServicio('Plomería - Lavavajillas o lavamanos tapados')">Solicitar</button>
                         </div>
                     </div>
                     <div class="subservicio">
-                        <span>Desatasco de tuberías</span>
+                        <span>Fugas en las cañerías</span>
                         <div>
-                            <span>Bs100</span>
-                            <button onclick="solicitarServicio('Plomería - Desatasco tuberías')">Solicitar</button>
+                            <!-- <span>Bs100</span> -->
+                            <button onclick="solicitarServicio('Plomería - Fugas en las cañerías')">Solicitar</button>
+                        </div>
+                    </div>
+                    <div class="subservicio">
+                        <span>Otros</span>
+                        <div>
+                            <!-- <span>Bs100</span> -->
+                            <button onclick="solicitarServicio('Plomería - Otros')">Solicitar</button>
                         </div>
                     </div>
                 </div>
@@ -332,24 +346,38 @@
                 </div>
                 <div class="subservicios">
                     <div class="subservicio">
-                        <span>Reparación de lavadoras</span>
+                        <span>lavadoras</span>
                         <div>
-                            <span>Bs180</span>
+                            <!-- <span>Bs180</span> -->
                             <button onclick="solicitarServicio('Reparación - Lavadoras')">Solicitar</button>
                         </div>
                     </div>
                     <div class="subservicio">
-                        <span>Reparación de refrigeradores</span>
+                        <span>Refrigeradores</span>
                         <div>
-                            <span>Bs200</span>
+                            <!-- <span>Bs200</span> -->
                             <button onclick="solicitarServicio('Reparación - Refrigeradores')">Solicitar</button>
                         </div>
                     </div>
                     <div class="subservicio">
-                        <span>Reparación de hornos</span>
+                        <span>Aire acondicionado</span>
                         <div>
-                            <span>Bs150</span>
-                            <button onclick="solicitarServicio('Reparación - Hornos')">Solicitar</button>
+                            <!-- <span>Bs150</span> -->
+                            <button onclick="solicitarServicio('Reparación - Aire acondicionado')">Solicitar</button>
+                        </div>
+                    </div>
+                    <div class="subservicio">
+                        <span>Freezer</span>
+                        <div>
+                            <!-- <span>Bs150</span> -->
+                            <button onclick="solicitarServicio('Reparación - Freezer')">Solicitar</button>
+                        </div>
+                    </div>
+                    <div class="subservicio">
+                            <span>Otros</span>
+                        <div>
+                            <!-- <span>Bs150</span> -->
+                            <button onclick="solicitarServicio('Reparación - Otros')">Solicitar</button>
                         </div>
                     </div>
                 </div>
@@ -400,14 +428,21 @@
         const overlay = document.querySelector('.overlay');
 
         menuIcon.addEventListener('click', () => {
+             mobileMenu.classList.toggle('active');
+             overlay.style.display = mobileMenu.classList.contains('active') ? 'block' : 'none';
+             
+        });
+
+
+      /*  menuIcon.addEventListener('click', () => {
             mobileMenu.classList.add('active');
             overlay.style.display = 'block';
-        });
+        });*/
 
         function closeMenu() {
             mobileMenu.classList.remove('active');
             overlay.style.display = 'none';
-        }
+        } 
 
         // Función para mostrar/ocultar detalles
         function toggleDetails(card) {
@@ -420,25 +455,9 @@
 
         // Función para solicitar subservicio
         function solicitarServicio(subservicio) {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(position => {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            const ubicacion = `https://www.google.com/maps?q=${lat},${lon}`;
-            const mensaje = `¡Hola! Quiero solicitar el servicio: ${subservicio}\nMi ubicación: ${ubicacion}`;
-            window.open(`https://wa.me/59172620639?text=${encodeURIComponent(mensaje)}`, '_blank');
-        }, error => {
-            alert("No se pudo obtener la ubicación. Asegúrate de permitir el acceso a la ubicación.");
             const mensaje = `¡Hola! Quiero solicitar el servicio: ${subservicio}`;
             window.open(`https://wa.me/59172620639?text=${encodeURIComponent(mensaje)}`, '_blank');
-        });
-    } else {
-        alert("Tu navegador no soporta la geolocalización.");
-        const mensaje = `¡Hola! Quiero solicitar el servicio: ${subservicio}`;
-        window.open(`https://wa.me/59172620639?text=${encodeURIComponent(mensaje)}`, '_blank');
-    }
-}
-
+        }
     </script>
 </body>
 </html>
