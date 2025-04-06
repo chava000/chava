@@ -263,6 +263,60 @@
             font-size: 1.2em;
             vertical-align: middle;
         }*/
+          /* Modal personalizado */
+          .custom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 10000;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .modal-textarea {
+            width: 100%;
+            height: 150px;
+            margin: 1rem 0;
+            padding: 1rem;
+            border: 2px solid #00256f;
+            border-radius: 8px;
+            resize: vertical;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .modal-button {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-send {
+            background-color: #00256f;
+            color: white;
+        }
+
+        .modal-cancel {
+            background-color: #cccccc;
+        }
     </style>
 </head>
 <body>
@@ -392,13 +446,25 @@
                     <div class="subservicio">
                             <span>Otros</span>
                         <div>
-                            <button onclick="solicitarServicio('Reparación - Otros')">Solicitar</button>
+                            <button type="button" onclick="solicitarServicio('Reparación - Otros')">Solicitar</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+        <!-- Modal para Otros -->
+        <div class="custom-modal" id="otrosModal">
+            <div class="modal-content">
+                <h3>Describe tu problema</h3>
+                <textarea class="modal-textarea" placeholder="Escribe aquí los detalles de tu problema..." id="problemaDesc"></textarea>
+                <div class="modal-buttons">
+                    <button class="modal-button modal-cancel" onclick="cerrarModal()">Cancelar</button>
+                    <button class="modal-button modal-send" onclick="enviarDescripcion()">Enviar</button>
+                </div>
+            </div>
+        </div>
 
     <section class="sobre-nosotros" id="nosotros">
         <h2>¿Por qué elegirnos?</h2>
@@ -485,6 +551,56 @@
                 window.open(`https://wa.me/59172620639?text=${encodeURIComponent(mensaje)}`, '_blank');
             }
         }
+        // Variables para el modal
+        let servicioActual = '';
+        const modal = document.getElementById('otrosModal');
+        const descripcion = document.getElementById('problemaDesc');
+
+        // Función modificada para manejar "Otros"
+        function solicitarServicio(subservicio) {
+            if (subservicio.includes('Otros')) {
+                servicioActual = subservicio;
+                modal.style.display = 'block';
+            } else {
+                enviarWhatsApp(subservicio);
+            }
+        }
+
+        function cerrarModal() {
+            modal.style.display = 'none';
+            descripcion.value = '';
+            servicioActual = '';
+        }
+
+        function enviarDescripcion() {
+            if (descripcion.value.trim() === '') {
+                alert('Por favor describe tu problema antes de enviar');
+                return;
+            }
+            
+            const mensajeCompleto = `${servicioActual}\nDescripción del problema: ${descripcion.value.trim()}`;
+            enviarWhatsApp(mensajeCompleto);
+            cerrarModal();
+        }
+
+        function enviarWhatsApp(mensaje) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    const ubicacion = `https://www.google.com/maps?q=${lat},${lon}`;
+                    const mensajeFinal = `${mensaje}\nMi ubicación: ${ubicacion}`;
+                    window.open(`https://wa.me/59172620639?text=${encodeURIComponent(mensajeFinal)}`, '_blank');
+                }, error => {
+                    const mensajeFinal = `${mensaje}\n(No se pudo obtener ubicación)`;
+                    window.open(`https://wa.me/59172620639?text=${encodeURIComponent(mensajeFinal)}`, '_blank');
+                });
+            } else {
+                window.open(`https://wa.me/59172620639?text=${encodeURIComponent(mensaje)}`, '_blank');
+            }
+        }
+
+       
     </script>
 </body>
 </html>
