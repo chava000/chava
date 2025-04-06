@@ -104,13 +104,13 @@
         .servicios {
             padding: 4rem 2rem;
             background-color: #f0f4f8;
-            
         }
 
         .servicio-titulo {
             text-align: center;
-            padding: 1rem 1rem;
+            margin: 0rem 0rem 2rem 0rem; /* Añadido margen vertical */
         }
+
         .servicios-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -234,7 +234,35 @@
             .mobile-menu {
                 width: 250px;
             }
+
+            /* Alineación texto sobre nosotros */
+            .sobre-nosotros p {
+                text-align: left;
+                /*padding: 0 1rem;*/
+            }
+
+            /* Ajustes redes sociales */
+            .social-item span {
+                display: none;
+            }
+
+
+            .social-icons {
+                gap: 1.5rem;
+                row-gap: 2rem;
+            }
+
+            .social-item {
+                flex: 0 0 30%;
+                justify-content: center;
+            }
         }
+
+        /* Nuevo icono TikTok 
+        .fa-tiktok {
+            font-size: 1.2em;
+            vertical-align: middle;
+        }*/
     </style>
 </head>
 <body>
@@ -272,28 +300,24 @@
                     <div class="subservicio">
                         <span>Cortocircuito</span>
                         <div>
-                            <!-- <span>Bs200</span> -->
                             <button onclick="solicitarServicio('Electricidad - Cortocircuito')">Solicitar</button>
                         </div>
                     </div>
                     <div class="subservicio">
                         <span>Ducha eléctrica</span>
                         <div>
-                            <!--  <span>Bs100</span> -->
                             <button onclick="solicitarServicio('Electricidad - Ducha eléctrica')">Solicitar</button>
                         </div>
                     </div>
                     <div class="subservicio">
                         <span>Tomas/focos dañados</span>
                         <div>
-                            <!-- <span>Bs80</span> -->
                             <button onclick="solicitarServicio('Electricidad - Tomas/focos dañados')">Solicitar</button>
                         </div>
                     </div>
                     <div class="subservicio">
                         <span>Otros</span>
                         <div>
-                            <!-- <span>Bs80</span> -->
                             <button onclick="solicitarServicio('Electricidad - Otros')">Solicitar</button>
                         </div>
                     </div>
@@ -310,28 +334,24 @@
                     <div class="subservicio">
                         <span>Goteras en los grifos</span>
                         <div>
-                            <!--  <span>Bs150</span> -->
                             <button onclick="solicitarServicio('Plomería - Goteras en los grifos')">Solicitar</button>
                         </div>
                     </div>
                     <div class="subservicio">
                         <span>Lavavajillas o lavamanos tapados</span>
                         <div>
-                            <!-- <span>Bs120</span> -->
                             <button onclick="solicitarServicio('Plomería - Lavavajillas o lavamanos tapados')">Solicitar</button>
                         </div>
                     </div>
                     <div class="subservicio">
                         <span>Fugas en las cañerías</span>
                         <div>
-                            <!-- <span>Bs100</span> -->
                             <button onclick="solicitarServicio('Plomería - Fugas en las cañerías')">Solicitar</button>
                         </div>
                     </div>
                     <div class="subservicio">
                         <span>Otros</span>
                         <div>
-                            <!-- <span>Bs100</span> -->
                             <button onclick="solicitarServicio('Plomería - Otros')">Solicitar</button>
                         </div>
                     </div>
@@ -348,35 +368,30 @@
                     <div class="subservicio">
                         <span>lavadoras</span>
                         <div>
-                            <!-- <span>Bs180</span> -->
                             <button onclick="solicitarServicio('Reparación - Lavadoras')">Solicitar</button>
                         </div>
                     </div>
                     <div class="subservicio">
                         <span>Refrigeradores</span>
                         <div>
-                            <!-- <span>Bs200</span> -->
                             <button onclick="solicitarServicio('Reparación - Refrigeradores')">Solicitar</button>
                         </div>
                     </div>
                     <div class="subservicio">
                         <span>Aire acondicionado</span>
                         <div>
-                            <!-- <span>Bs150</span> -->
                             <button onclick="solicitarServicio('Reparación - Aire acondicionado')">Solicitar</button>
                         </div>
                     </div>
                     <div class="subservicio">
                         <span>Freezer</span>
                         <div>
-                            <!-- <span>Bs150</span> -->
                             <button onclick="solicitarServicio('Reparación - Freezer')">Solicitar</button>
                         </div>
                     </div>
                     <div class="subservicio">
                             <span>Otros</span>
                         <div>
-                            <!-- <span>Bs150</span> -->
                             <button onclick="solicitarServicio('Reparación - Otros')">Solicitar</button>
                         </div>
                     </div>
@@ -407,6 +422,10 @@
                 <span>Instagram</span>
             </a>
             <a href="" class="social-item">
+                <i class="fab fa-tiktok fa-2x"></i>
+                <span>TikTok  </span>
+            </a>
+            <a href="" class="social-item">
                 <i class="fab fa-twitter fa-2x"></i>
                 <span>Twitter</span>
             </a>
@@ -416,7 +435,7 @@
             </a>
             <a href="mailto:chava.szc@outlook.com" class="social-item">
                 <i class="fas fa-envelope fa-2x"></i>
-                <span>chava.szc@outlook.com</span>
+                <span>Correo</span>
             </a>
         </div>
     </section>
@@ -430,14 +449,7 @@
         menuIcon.addEventListener('click', () => {
              mobileMenu.classList.toggle('active');
              overlay.style.display = mobileMenu.classList.contains('active') ? 'block' : 'none';
-             
         });
-
-
-      /*  menuIcon.addEventListener('click', () => {
-            mobileMenu.classList.add('active');
-            overlay.style.display = 'block';
-        });*/
 
         function closeMenu() {
             mobileMenu.classList.remove('active');
@@ -473,7 +485,6 @@
                 window.open(`https://wa.me/59172620639?text=${encodeURIComponent(mensaje)}`, '_blank');
             }
         }
-
     </script>
 </body>
 </html>
