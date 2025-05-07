@@ -584,23 +584,76 @@
             enviarWhatsApp(mensajeCompleto);
             cerrarModal();
         }
-
+        
         function enviarWhatsApp(mensaje) {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(position => {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
-                    const ubicacion = `https://www.google.com/maps?q=${lat},${lon}`;
-                    const mensajeFinal = `${mensaje}\nMi ubicación: ${ubicacion}`;
-                    window.open(`https://wa.me/59172620639?text=${encodeURIComponent(mensajeFinal)}`, '_blank');
-                }, error => {
-                    const mensajeFinal = `${mensaje}\n(No se pudo obtener ubicación)`;
-                    window.open(`https://wa.me/59172620639?text=${encodeURIComponent(mensajeFinal)}`, '_blank');
-                });
-            } else {
-                window.open(`https://wa.me/59172620639?text=${encodeURIComponent(mensaje)}`, '_blank');
+    if (navigator.geolocation) {
+        // Mostrar loader mientras se obtiene la ubicación
+        showLoader();
+        
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                const ubicacion = `https://www.google.com/maps?q=${lat},${lon}`;
+                redirectToWhatsApp(`${mensaje}\nMi ubicación: ${ubicacion}`);
+            },
+            error => {
+                // Si hay error, enviar sin ubicación
+                redirectToWhatsApp(`${mensaje}\n(No se pudo obtener ubicación)`);
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 7000, // Aumentado para móviles
+                maximumAge: 0
             }
-        }
+        );
+    } else {
+        redirectToWhatsApp(`${mensaje}\n(Geolocalización no soportada)`);
+    }
+}
+
+function redirectToWhatsApp(mensajeFinal) {
+    // Ocultar loader
+    hideLoader();
+    
+    // Forzar redirección después de 50ms (necesario para iOS)
+    setTimeout(() => {
+        window.location.href = `https://wa.me/59172620639?text=${encodeURIComponent(mensajeFinal)}`;
+    }, 50);
+}
+
+// Funciones para el loader (agregar al CSS)
+function showLoader() {
+    document.body.innerHTML += `
+        <div id="loader" style="
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.9);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        ">
+            <div style="
+                border: 4px solid #00256f;
+                border-radius: 50%;
+                border-top: 4px solid transparent;
+                width: 40px;
+                height: 40px;
+                animation: spin 1s linear infinite;
+            "></div>
+        </div>
+    `;
+}
+
+function hideLoader() {
+    const loader = document.getElementById('loader');
+    if (loader) loader.remove();
+}
+        
 
        
     </script>
